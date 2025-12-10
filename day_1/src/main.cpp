@@ -3,10 +3,11 @@
 #include <string>
 #include <vector>
 #include <cstdint>
+#include <cstdlib>
 
 /* CONSTANTS */
 const int DIAL_START = 50;
-const std::string PATH {R"(C:\Boeing\aoc\day_1\inputs\test.txt)"};
+const std::string PATH {R"(C:\Sandbox\aoc\day_1\inputs\input.txt)"};
 
 /* GLOBALS */
 int password = 0;
@@ -32,9 +33,8 @@ std::vector<std::string> file_2_vector(const std::string path)
     return vec;
 }
 
-void inc_zeros(void)
+void inc_count(void)
 {
-    std::cout << "inc" << std::endl;
     password++;
 }
 
@@ -43,54 +43,59 @@ int get_password(void)
     return password;
 }
 
-int sub_constrained(int a, int b)
+int sub_and_count(int a, int b)
 {
     int ret = 0;
+    std::div_t res = std::div(b,100);
 
-    if (b > 99)
+    for (int i = 0; i < res.quot; i++)
     {
-        b = b % 100;
-        for (int i = 0; i < (b / 100); i++)
-        {
-            inc_zeros();
-        }
+        inc_count();
     }
-    if (a >= b)  
+
+    if (a > res.rem)
     {
         ret = a - b;
     }
-    else
+    else if (a == res.rem)
     {
-        ret = 100 + a - b;
-        inc_zeros();
+        inc_count();
+        ret = 0;
+    }
+    else if (a < res.rem)
+    {
+        if (a == 0)
+        {
+            ret = 100 - res.rem;
+        }
+        else
+        {
+            ret = 100 + a - res.rem;
+            inc_count();
+        }
     }
 
     return ret;
 }
 
-int add_constrained(int a, int b)
+int add_and_count(int a, int b)
 {
     int ret = 0;
+    std::div_t res = std::div(b,100);
 
-    if (b > 99)
+    for (int i = 0; i < res.quot; i++)
     {
-        b = b % 100;
-        for (int i = 0; i < (b / 100); i++)
-        {
-            inc_zeros();
-        }
+        inc_count();
     }
-    if (a + b < 100)
+
+    if (a + res.rem < 100)
     {
-        ret = a + b;
-    }
-    else if (a + b == 100)
-    {
-        ret = 0;
+        ret = a + res.rem;
     }
     else
     {
-        ret = a + b - 100; 
+        ret = a + res.rem - 100;
+        inc_count();
     }
 
     return ret;
@@ -105,11 +110,11 @@ int calculate_dial(int initial_dial, std::string pwd)
 
     if (dir.compare("L") == 0)
     {
-        next_dial = sub_constrained(initial_dial, cnts);
+        next_dial = sub_and_count(initial_dial, cnts);
     }
     else if (dir.compare("R") == 0)
     {
-        next_dial = add_constrained(initial_dial, cnts);
+        next_dial = add_and_count(initial_dial, cnts);
     }
 
     return next_dial;
@@ -124,13 +129,8 @@ int main()
     for (auto v : vec)
     {
         dial = calculate_dial(dial, v);
-        std::cout << v << " " << dial << std::endl;
-        if (dial == 0)
-        {
-            inc_zeros();
-        }
+        std::cout << v << " " << dial << " " << password <<std::endl;
     }
-
     std::cout << password << std::endl;
 
     return 0;
