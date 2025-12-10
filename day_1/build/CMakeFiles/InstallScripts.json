@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Boeing/aoc/day_1/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

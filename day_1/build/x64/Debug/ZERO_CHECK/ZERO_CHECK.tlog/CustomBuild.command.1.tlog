@@ -1,0 +1,10 @@
+^C:\BOEING\AOC\DAY_1\BUILD\CMAKEFILES\6E2C65E77BAC9FCADAECA9DE9771E68C\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Boeing/aoc/day_1 -BC:/Boeing/aoc/day_1/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Boeing/aoc/day_1/build/aoc.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

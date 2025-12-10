@@ -1,0 +1,28 @@
+version: '3'
+
+tasks:
+  default:
+    dir: 'build/'    
+    cmds:
+      - task: clean
+      - cmake ..
+      - cmake --build .
+      - ./Debug/main.exe
+
+  clean:
+    internal: true
+    cmds:
+      - rm -rf build/
+      - mkdir build
+
+  build:
+    dir: 'build/'
+    cmds:
+      - cmake ..
+      - cmake --build .
+      - ./main.exe
+
+  run:
+    dir: 'build/Debug/'
+    cmds:
+      - ./main.exe
