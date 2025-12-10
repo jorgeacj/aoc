@@ -38,11 +38,6 @@ void inc_count(void)
     password++;
 }
 
-int get_password(void)
-{
-    return password;
-}
-
 int sub_and_count(int a, int b)
 {
     int ret = 0;
@@ -55,7 +50,7 @@ int sub_and_count(int a, int b)
 
     if (a > res.rem)
     {
-        ret = a - b;
+        ret = a - res.rem;
     }
     else if (a == res.rem)
     {
@@ -129,7 +124,6 @@ int main()
     for (auto v : vec)
     {
         dial = calculate_dial(dial, v);
-        std::cout << v << " " << dial << " " << password <<std::endl;
     }
     std::cout << password << std::endl;
 
