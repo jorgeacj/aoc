@@ -7,7 +7,7 @@
 
 /* CONSTANTS */
 const int DIAL_START = 50;
-const std::string PATH {R"(C:\Sandbox\aoc\day_1\inputs\input.txt)"};
+const std::string PATH {R"(C:\Boeing\aoc\day_1\inputs\input.txt)"};
 
 /* GLOBALS */
 int password = 0;
