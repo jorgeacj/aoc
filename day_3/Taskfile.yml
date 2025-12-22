@@ -1,0 +1,37 @@
+version: '3'
+
+tasks:
+  default:
+    dir: 'build/'    
+    cmds:
+      - task: clean
+      - cmake ..
+      - cmake --build .
+      - ./Debug/main.exe
+
+  clean:
+    internal: true
+    cmds:
+      - rm -rf build/
+      - rm -rf debug/
+      - mkdir build
+      - mkdir debug/
+
+  build:
+    dir: 'build/'
+    cmds:
+      - task: clean
+      - cmake ..
+      - cmake --build .
+
+  run:
+    dir: 'build/Debug/'
+    cmds:
+      - ./main.exe
+
+  debug:
+    dir: 'debug/'
+    cmds:
+      - task: clean
+      - cmake -DCMAKE_BUILD_TYPE=Debug ..
+      - cmake --build .
