@@ -5,7 +5,7 @@
 #include <cstdint>
 
 /* CONSTANTS */
-const std::string PATH {R"(C:\Boeing\aoc\day_2\inputs\testa.txt)"};
+const std::string PATH {R"(C:\Sandbox\aoc\day_2\inputs\input.txt)"};
 
 /* GLOBALS */
 volatile int64_t sum = 0;
@@ -44,23 +44,18 @@ bool is_invalid(std::string n)
     int size        = n.size();
     int cnt         = 0;    
 
-    for (int idx = 1; idx <= size; idx++)
+    for (int idx = 1; idx < size; idx++)
     {
         if (size % idx == 0)
         {
-            int idx_l = idx;
-            int idx_r = 2*idx;
+            int jdx = idx;
             pattern = n.substr(0,idx);
-
-            std::cout << "pattern: " << pattern << " | compare to: " << n.substr(idx_l,idx_r-1) << std::endl;
             
-            while (pattern.compare(n.substr(idx_l,idx_r-1)) == 0)
+            while (pattern.compare(n.substr(jdx,idx)) == 0)
             {
-                std::cout << "pattern: " << pattern << " | compare to: " << n.substr(idx_l,idx_r-1) << std::endl;
-                idx_l += idx;
-                idx_r += idx;
+                jdx += idx;
                 
-                if (idx_r > n.length())
+                if (jdx >= n.length())
                 {
                     id_invalid = true;
                     sum += std::stoll(n);
